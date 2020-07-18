@@ -1,0 +1,35 @@
+{
+	"include": [
+		"$(MODDABLE)/examples/manifest_base.json",
+		"$(MODDABLE)/examples/manifest_net.json",
+		"$(MODDABLE)/modules/io/manifest.json",
+		"$(MODDABLE)/modules/crypt/tls.json"
+	],
+	"config": {
+		"username": "<user_name>",
+		"feedKey": "<your_feed_key_here>",
+		"AIOKey": "<your_AIO_key_here>",
+	},
+	"modules": {
+		"*": [
+			"./main",
+			"./lsm9ds1",
+			"$(MODULES)/io/i2c/smbus",
+			"$(MODULES)/network/http/*",
+			"$(MODULES)/io/common/builtinCommon"
+		],
+		"builtin/i2c": "$(MODULES)/io/i2c/*"
+	},
+	"preload": [
+		"lsm9ds1",
+		"http",	
+		"builtin/i2c",
+		"smbus"
+	],
+	"resources": {
+		"*": [
+			"$(MODULES)/crypt/data/ca170",
+            "$(MODULES)/crypt/data/ca106",
+		]
+	},
+}
