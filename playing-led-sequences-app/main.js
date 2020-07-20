@@ -18,17 +18,17 @@ import  {SequenceLED, IdleLED} from "led";
 class ButtonMonitor extends Digital {
 	constructor(dictionary){
 		super({ pin: 0, 
-				mode: Digital.InputPullUp, 
-				edge: Digital.Rising | Digital.Falling,
+			mode: Digital.InputPullUp, 
+			edge: Digital.Rising | Digital.Falling,
 
 		onReadable(){
 			let state = this.read();
 			this.led2.monitorButton(state);
 		}
 		});
-		this.led2 = dictionary.led2;
+	this.led2 = dictionary.led2;
 	}
-	}
+}
 
 const led16 = new IdleLED();
 const led2 = new SequenceLED(led16);
