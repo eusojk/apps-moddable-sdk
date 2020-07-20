@@ -28,7 +28,7 @@ class ButtonMonitor extends Digital {
 		});
 		this.led2 = dictionary.led2;
 	}
-}
+	}
 
 const led16 = new IdleLED();
 const led2 = new SequenceLED(led16);
