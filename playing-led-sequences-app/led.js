@@ -34,10 +34,8 @@ class LED extends Digital {
     playback(callback, blink){
 		if (this.#position % 2 == 0){
             this.on();
-            // trace(`on for ${this.#sequence[this.#position]} ms \n`);
 		}else{
 			this.off();
-            // trace(`on for ${this.#sequence[this.#position]} ms \n`);
 		}
 		if (this.#position >= this.#sequence.length){
             if (blink) callback.doneBlinking();
@@ -90,6 +88,7 @@ class SequenceLED extends LED {
             } 
         }
     }
+	
 	setTimeoutTimer(){
 		this.#timeoutTimer = System.setTimeout(id => {
 			trace("time out: 10 s\n");
@@ -97,6 +96,7 @@ class SequenceLED extends LED {
 			this.sequenceEndDetected();
 		}, TIMEOUT);
 	}
+	
 	resetTimeoutTimer(){
 		if (this.#timeoutTimer !== undefined){
 			System.clearTimeout(this.#timeoutTimer);
