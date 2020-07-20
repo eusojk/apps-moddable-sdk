@@ -15,7 +15,8 @@ import config from "mc/config";
 import {Request} from "http";
 import LSM9DS1 from "lsm9ds1";
 
-// const POSITIONS = ['RIGHT SIDE', 'LEFT SIDE', 'ON BACK', 'ON FACE', 'UPSIDE DOWN', 'RIGHT SIDE UP'];
+// This array contains the list of icons to show on the Adafruit IO dashboard for each of the 6 orientations. 
+// e.g. 'square-o' => 'face down', 'chevron-circle-up' => 'up', etc.  
 const POSITIONS = ['chevron-circle-right', 'chevron-circle-left', 'square-o', 'square', 'chevron-circle-down', 'chevron-circle-up'];
 const ORIENTATION_THRESHOLD = 0.8
 const FILTERING_THRESHOLD = 1.2
