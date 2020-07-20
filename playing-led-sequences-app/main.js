@@ -21,10 +21,10 @@ class ButtonMonitor extends Digital {
 			mode: Digital.InputPullUp, 
 			edge: Digital.Rising | Digital.Falling,
 
-		onReadable(){
-			let state = this.read();
-			this.led2.monitorButton(state);
-		}
+			onReadable(){
+				let state = this.read();
+				this.led2.monitorButton(state);
+			}
 		});
 	this.led2 = dictionary.led2;
 	}
