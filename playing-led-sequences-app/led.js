@@ -2,7 +2,7 @@ import Digital from "builtin/digital";
 import Time from "time";
 
 const FLASH_DURATION = 100;
-const TIMEOUT = 5000;
+const TIMEOUT = 500;
 const START_IDLE = new Array(10 * 2 - 1).fill(FLASH_DURATION);
 const BETWEEN_IDLES = new Array(5 * 2 - 1).fill(FLASH_DURATION);
 const BETWEEN_CYCLES = new Array(10 * 2 - 1).fill(FLASH_DURATION);
@@ -25,26 +25,26 @@ class LED extends Digital {
 		super.write(1);
 	}
 
-	play(sequence, callback, blink){
+	play(sequence, blink){
 		this.#sequence = sequence;
 		this.#position = 0;
-		this.playback(callback, blink);
+		this.playback(blink);
 	}
 
-	playback(callback, blink){
+	playback(blink){
 		if (this.#position % 2 == 0){
 			this.on();
 		}else{
 			this.off();
 		}
 		if (this.#position >= this.#sequence.length){
-			if (blink) callback.doneBlinking();
-			else callback.onReplayEnded();	
+			if (blink) this.doneBlinking();
+			else this.onReplayEnded();	
 			return;
 		}
 
 		this.#replayTimer = System.setTimeout(id=>{
-			this.playback(callback, blink);
+			this.playback(blink);
 		}, this.#sequence[this.#position++]);
 
 	}
@@ -106,11 +106,11 @@ class SequenceLED extends LED {
 
 	sequenceEndDetected(){
 		this.#playing = true;
-		this.#sequenceUnit.push(TIMEOUT/10);
+		this.#sequenceUnit.push(TIMEOUT);
 		this.#sequenceUnit.shift(0);
 		this.#idleLED.addSequenceUnit(this.#sequenceUnit);
 		trace(`${JSON.stringify(this.#idleLED.traceInfo())}\n`);
-		this.play(this.#sequenceUnit, this, false)
+		this.play(this.#sequenceUnit, false)
 	}
 
 	onReplayEnded(){
@@ -150,7 +150,8 @@ class IdleLED extends LED {
 	}
 
 	playUnit(){
-		this.play(this.#sequences[this.#position], this, false);
+		// trace(`Playing sequence: ${JSON.stringify(this.#sequences[this.#position])}\n`);
+		this.play(this.#sequences[this.#position], false);
 	}
 
 	donePlayingUnit(){
